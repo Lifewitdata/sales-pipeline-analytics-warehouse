@@ -1,0 +1,57 @@
+name: nightly pipeline
+
+# Scheduled orchestration - the GitHub Actions cron equivalent of the Cloud
+# Composer / Airflow DAG the role description asks for. Same steps as CI, on
+# a timer, against a refreshable extract: extract --refresh re-downloads and
+# re-verifies sha256, load is idempotent (drop + recreate + manifest append),
+# dbt build re-materializes and re-tests, freshness asserts the landing zone
+# is not stale.
+#
+# 17:30 UTC = 23:00 IST = 09:30 PST - the source agency's end of day, so a
+# nightly pull sees a complete business day.
+
+on:
+  schedule:
+    - cron: "30 17 * * *"
+  workflow_dispatch:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Refresh extract from source + verify checksums
+        run: python etl/extract.py --refresh
+
+      - name: Load raw layer (idempotent, manifests the run)
+        run: python etl/load.py
+
+      - name: Profile source
+        run: python etl/profile_source.py
+
+      - name: dbt build
+        run: dbt build --project-dir warehouse --profiles-dir warehouse
+
+      - name: Source freshness (warn 24h / error 168h)
+        run: dbt source freshness --project-dir warehouse --profiles-dir warehouse
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-run
+          path: |
+            reports/source_profile.json
+            warehouse/target/manifest.json

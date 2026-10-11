@@ -1,0 +1,50 @@
+name: warehouse ci
+
+# PR/merge gate: the committed raw extract must load, and every dbt model
+# must build with all 51 tests passing. Runs on DuckDB - no cloud creds, no
+# billing, so the check is free to run on every commit.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .   # repo root; dbt gets explicit paths below
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Verify raw extract checksums
+        run: python etl/extract.py --offline
+
+      - name: Load raw layer into DuckDB
+        run: python etl/load.py
+
+      - name: Profile source (writes reports/source_profile.json)
+        run: python etl/profile_source.py
+
+      - name: dbt build (models + tests)
+        run: dbt build --project-dir warehouse --profiles-dir warehouse
+
+      - name: dbt source freshness
+        run: dbt source freshness --project-dir warehouse --profiles-dir warehouse
+
+      - name: Upload DQ profile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-profile
+          path: reports/source_profile.json

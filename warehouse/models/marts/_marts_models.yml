@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: dim_account
+    description: >
+      Account dimension, one row per account. Parent/subsidiary relationships
+      are resolved to surrogate keys via a self-join; 70 of 85 accounts are
+      independent so parent_account_key is legitimately null there.
+    columns:
+      - name: account_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_product
+    description: Product dimension, one row per product.
+    columns:
+      - name: product_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_sales_agent
+    description: >
+      Sales agent dimension, one row per agent, with the agent's manager
+      resolved to a key.
+    columns:
+      - name: sales_agent_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: >
+      Conformed date dimension covering the observed fact range
+      (2016-10-20 .. 2017-12-31). Bounds are derived from the staging fact so
+      a refreshed extract widens the dim automatically.
+    columns:
+      - name: date_key
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_opportunity
+    description: >
+      Opportunity fact table, one row per opportunity_id. revenue is the
+      stage-filtered Won close_value (DQ-009: Lost rows carry close_value = 0,
+      so stage filtering - not close_value > 0 - defines revenue).
+    columns:
+      - name: opportunity_id
+        tests:
+          - unique
+          - not_null
+      - name: sales_agent_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_sales_agent')
+              field: sales_agent_key
+      - name: product_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_key
+      - name: account_key
+        description: >
+          Null on the 1,425 opportunities with missing attribution (DQ-004) -
+          dbt's relationships test ignores null FKs, which is the desired
+          behaviour: these rows join to an unknown member, not to nothing.
+        tests:
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: revenue
+        tests:
+          - not_null
+
+  - name: fct_pipeline_monthly
+    description: >
+      Monthly pipeline snapshot by regional office. Grain is one row per
+      (month_start, regional_office); grain uniqueness is enforced by the
+      singular test assert_monthly_grain_unique. Open pipeline is measured in
+      counts because the source has no pre-close amounts.

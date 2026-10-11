@@ -1,0 +1,32 @@
+# Warehouse artifacts - regenerate with `python etl/load.py` + `dbt build`
+*.duckdb
+warehouse/target/
+warehouse/dbt_packages/
+warehouse/logs/
+warehouse/.user.yml
+logs/
+
+# Benchmark datasets (regenerate: python optimization/generate_big_dataset.py)
+# ~800 MB unpartitioned + ~1.2 GB Hive partitions - never commit.
+optimization/data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Streamlit
+dashboard/.streamlit/secrets.toml
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Credentials - this project reads BigQuery only via environment variables,
+# never from committed keyfiles.
+service-account*.json
+*.pem
+credentials.yml

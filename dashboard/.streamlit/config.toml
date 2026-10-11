@@ -1,0 +1,21 @@
+[theme]
+base = "light"
+primaryColor = "#0969da"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f6f8fa"
+textColor = "#1f2328"
+borderColor = "#d0d7de"
+linkColor = "#0969da"
+
+greenColor = "#1a7f37"
+redColor = "#cf222e"
+orangeColor = "#bf8700"
+yellowColor = "#dbab09"
+blueColor = "#0969da"
+violetColor = "#8250df"
+grayColor = "#57606a"
+
+chartCategoricalColors = ["#0969da", "#1a7f37", "#bf3989", "#8250df", "#cf222e", "#bf8700", "#57606a"]
+
+[client]
+toolbarMode = "minimal"

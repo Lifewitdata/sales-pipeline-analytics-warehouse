@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: rpt_exec_overview
+    description: >
+      Single-row executive KPI strip: funnel counts, closed-deal win rate,
+      Won revenue, deal sizes, cycle times, coverage and snapshot date.
+      Feed for the dashboard overview page.
+
+  - name: rpt_pipeline_health
+    description: >
+      Monthly pipeline by regional office: engagement, closes, win rate,
+      Won revenue and open pipeline carried at each month end. Feed for the
+      pipeline health page.
+
+  - name: rpt_rep_scorecard
+    description: >
+      One row per sales agent: funnel counts, closed-deal win rate, Won
+      revenue, deal size, cycle time, and a revenue rank. Feed for the rep
+      scorecard page.
+
+  - name: rpt_data_quality
+    description: >
+      One row per data quality check with its live flagged-row count from
+      int_data_quality_flags. Feed for the data quality dashboard page.
+    columns:
+      - name: check_id
+        tests:
+          - not_null

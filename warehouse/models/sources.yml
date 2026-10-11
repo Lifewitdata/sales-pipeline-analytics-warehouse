@@ -1,0 +1,92 @@
+version: 2
+
+sources:
+  - name: crm_raw
+    description: >
+      Raw landing zone, populated by etl/load.py from the verified source extract.
+      Nothing in this schema is transformed - column names, spellings and nulls
+      are exactly as the source delivered them. Every table carries _loaded_at,
+      and every load run appends to raw._load_manifest with the source file's
+      sha256 so any warehouse row can be traced back to specific source bytes.
+    schema: raw
+    loaded_at_field: _loaded_at
+    freshness:
+      warn_after: { count: 24, period: hour }
+      error_after: { count: 168, period: hour }
+
+    tables:
+      - name: accounts
+        description: >
+          One row per customer account. 85 accounts. Grain is account_name.
+        columns:
+          - name: account
+            description: Natural key, company name.
+          - name: sector
+            description: >
+              Industry. Contains the known defect 'technolgy' (DQ-015), repaired
+              in staging with the raw value preserved.
+          - name: office_location
+            description: >
+              Country of the account's office. Contains the known defect
+              'Philipines' (DQ-016).
+          - name: subsidiary_of
+            description: >
+              Parent company name when this account is a subsidiary. Null for 70
+              of 85 rows - null means independent, not unknown.
+
+      - name: products
+        description: Product master with list price. 7 products across 4 series.
+        columns:
+          - name: product
+            description: Natural key, canonical product label.
+          - name: series
+            description: Product family - GTX, MG, GTK or GTX Plus.
+          - name: sales_price
+            description: List price per unit.
+
+      - name: sales_teams
+        description: >
+          Sales agent master. 35 agents across 3 regional offices, rolling up to
+          6 managers.
+        columns:
+          - name: sales_agent
+            description: Natural key, agent name.
+          - name: manager
+            description: Agent's manager. Forms a one-level sales hierarchy.
+          - name: regional_office
+            description: East, West or Central.
+
+      - name: sales_pipeline
+        description: >
+          Opportunity fact source. 8,800 rows at one row per opportunity_id.
+          Engagements span 2016-10-20 to 2017-12-27; closes span 2017-03-01 to
+          2017-12-31.
+        columns:
+          - name: opportunity_id
+            description: Natural key. Verified unique at source (DQ-010).
+          - name: sales_agent
+            description: FK to sales_teams. Zero orphans (DQ-002).
+          - name: product
+            description: >
+              FK to products, but 1,480 rows carry the malformed label 'GTXPro'
+              instead of 'GTX Pro' (DQ-003). Recovered by a normalised join in
+              the intermediate layer rather than by editing the source.
+          - name: account
+            description: FK to accounts. Null on 1,425 rows / 16.19% (DQ-004).
+          - name: deal_stage
+            description: Prospecting, Engaging, Won or Lost.
+          - name: engage_date
+            description: Null on 500 rows / 5.68% (DQ-005).
+          - name: close_date
+            description: >
+              Null on 2,089 rows / 23.74% (DQ-006). This null count exactly
+              equals the open-opportunity count, so it is structural - it is the
+              open pipeline and must never be imputed (DQ-008).
+          - name: close_value
+            description: >
+              Null on the same 2,089 open rows. Recorded as 0 rather than null
+              on all 2,473 Lost rows (DQ-009), so revenue must be filtered on
+              stage and not on close_value > 0.
+
+      - name: data_dictionary
+        description: Vendor-supplied field descriptions for the four tables above.

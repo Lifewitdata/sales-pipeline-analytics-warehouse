@@ -1,0 +1,87 @@
+version: 2
+
+models:
+  - name: stg_crm_accounts
+    description: >
+      Cleaned account master, one row per account. Repairs the two known
+      misspellings (DQ-015 'technolgy', DQ-016 'Philipines') while keeping the
+      raw value and a repair flag on every row so the fix is auditable.
+    columns:
+      - name: account_key
+        description: Surrogate key, md5 of account_name.
+        tests:
+          - unique
+          - not_null
+      - name: account_name
+        description: Trimmed account name, natural key.
+        tests:
+          - unique
+          - not_null
+      - name: sector
+        tests:
+          - not_null
+
+  - name: stg_crm_products
+    description: >
+      Cleaned product master, one row per product. Adds a lowercase
+      alphanumeric-normalised name (product_name_normalized) so the malformed
+      opportunity label 'GTXPro' can be re-joined to 'GTX Pro' without editing
+      either side (DQ-003).
+    columns:
+      - name: product_key
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        tests:
+          - unique
+          - not_null
+      - name: product_name_normalized
+        tests:
+          - unique
+          - not_null
+      - name: list_price
+        tests:
+          - not_null
+
+  - name: stg_crm_sales_teams
+    description: Cleaned sales agent master, one row per agent.
+    columns:
+      - name: sales_agent_key
+        tests:
+          - unique
+          - not_null
+      - name: agent_name
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_crm_opportunities
+    description: >
+      Cleaned opportunity fact source, one row per opportunity_id. Derives
+      stage booleans and stage_order, and revenue as a stage-filtered measure
+      (Won close_value, else 0) because Lost deals are recorded at
+      close_value = 0 rather than null (DQ-009). Open-pipeline nulls are kept
+      as null (DQ-008) - they are never imputed.
+    columns:
+      - name: opportunity_id
+        tests:
+          - unique
+          - not_null
+      - name: deal_stage
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Prospecting', 'Engaging', 'Won', 'Lost']
+      - name: sales_agent_key
+        description: >
+          FK to stg_crm_sales_teams. Verified zero orphans at source (DQ-002),
+          so the relationship test must pass on every build.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_crm_sales_teams')
+              field: sales_agent_key
+      - name: stage_order
+        tests:
+          - not_null

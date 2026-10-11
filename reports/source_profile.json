@@ -1,0 +1,398 @@
+{
+  "generated_at": "2026-10-10T12:18:13.082771+00:00",
+  "source": "Maven Analytics - CRM Sales Opportunities",
+  "stage_counts": {
+    "tables_profiled": 5,
+    "checks_run": 18,
+    "errors": 1,
+    "warnings": 6,
+    "passed": 11
+  },
+  "tables": {
+    "accounts": {
+      "row_count": 85,
+      "columns": [
+        {
+          "column": "account",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 85,
+          "min": "Acme Corporation",
+          "max": "dambase"
+        },
+        {
+          "column": "sector",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 10,
+          "min": "employment",
+          "max": "telecommunications"
+        },
+        {
+          "column": "year_established",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 35,
+          "min": "1979",
+          "max": "2017"
+        },
+        {
+          "column": "revenue",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 85,
+          "min": "4.54",
+          "max": "11698.03"
+        },
+        {
+          "column": "employees",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 85,
+          "min": "9",
+          "max": "34288"
+        },
+        {
+          "column": "office_location",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 15,
+          "min": "Belgium",
+          "max": "United States"
+        },
+        {
+          "column": "subsidiary_of",
+          "null_count": 70,
+          "null_rate": 0.8235,
+          "distinct_count": 7,
+          "min": "Acme Corporation",
+          "max": "Warephase"
+        }
+      ]
+    },
+    "products": {
+      "row_count": 7,
+      "columns": [
+        {
+          "column": "product",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 7,
+          "min": "GTK 500",
+          "max": "MG Special"
+        },
+        {
+          "column": "series",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 3,
+          "min": "GTK",
+          "max": "MG"
+        },
+        {
+          "column": "sales_price",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 7,
+          "min": "55.0",
+          "max": "26768.0"
+        }
+      ]
+    },
+    "sales_teams": {
+      "row_count": 35,
+      "columns": [
+        {
+          "column": "sales_agent",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 35,
+          "min": "Anna Snelling",
+          "max": "Zane Levy"
+        },
+        {
+          "column": "manager",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 6,
+          "min": "Cara Losch",
+          "max": "Summer Sewald"
+        },
+        {
+          "column": "regional_office",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 3,
+          "min": "Central",
+          "max": "West"
+        }
+      ]
+    },
+    "sales_pipeline": {
+      "row_count": 8800,
+      "columns": [
+        {
+          "column": "opportunity_id",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 8800,
+          "min": "0000I7AO",
+          "max": "ZZY4516R"
+        },
+        {
+          "column": "sales_agent",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 30,
+          "min": "Anna Snelling",
+          "max": "Zane Levy"
+        },
+        {
+          "column": "product",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 7,
+          "min": "GTK 500",
+          "max": "MG Special"
+        },
+        {
+          "column": "account",
+          "null_count": 1425,
+          "null_rate": 0.1619,
+          "distinct_count": 85,
+          "min": "Acme Corporation",
+          "max": "dambase"
+        },
+        {
+          "column": "deal_stage",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 4,
+          "min": "Engaging",
+          "max": "Won"
+        },
+        {
+          "column": "engage_date",
+          "null_count": 500,
+          "null_rate": 0.0568,
+          "distinct_count": 421,
+          "min": "2016-10-20",
+          "max": "2017-12-27"
+        },
+        {
+          "column": "close_date",
+          "null_count": 2089,
+          "null_rate": 0.2374,
+          "distinct_count": 306,
+          "min": "2017-03-01",
+          "max": "2017-12-31"
+        },
+        {
+          "column": "close_value",
+          "null_count": 2089,
+          "null_rate": 0.2374,
+          "distinct_count": 2051,
+          "min": "0.0",
+          "max": "30288.0"
+        }
+      ]
+    },
+    "data_dictionary": {
+      "row_count": 21,
+      "columns": [
+        {
+          "column": "source_table",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 4,
+          "min": "accounts",
+          "max": "sales_teams"
+        },
+        {
+          "column": "field",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 18,
+          "min": "account",
+          "max": "year_established"
+        },
+        {
+          "column": "description",
+          "null_count": 0,
+          "null_rate": 0.0,
+          "distinct_count": 19,
+          "min": "Annual revenue (in millions of USD)",
+          "max": "Year Established"
+        }
+      ]
+    }
+  },
+  "stage_mix": [
+    {
+      "stage": "Won",
+      "opportunities": 4238,
+      "recorded_value": 10005534.0
+    },
+    {
+      "stage": "Lost",
+      "opportunities": 2473,
+      "recorded_value": 0.0
+    },
+    {
+      "stage": "Engaging",
+      "opportunities": 1589,
+      "recorded_value": 0.0
+    },
+    {
+      "stage": "Prospecting",
+      "opportunities": 500,
+      "recorded_value": 0.0
+    }
+  ],
+  "findings": [
+    {
+      "id": "DQ-001",
+      "severity": "pass",
+      "title": "opportunity.account resolves to accounts.account",
+      "detail": "0 orphan rows across 0 distinct values",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline c LEFT JOIN raw.accounts p ON c.account = p.account WHERE c.account IS NOT NULL AND p.account IS NULL"
+    },
+    {
+      "id": "DQ-002",
+      "severity": "pass",
+      "title": "opportunity.sales_agent resolves to sales_teams.sales_agent",
+      "detail": "0 orphan rows",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline c LEFT JOIN raw.sales_teams p ON c.sales_agent = p.sales_agent WHERE c.sales_agent IS NOT NULL AND p.sales_agent IS NULL"
+    },
+    {
+      "id": "DQ-003",
+      "severity": "error",
+      "title": "opportunity.product resolves to products.product",
+      "detail": "1,480 rows carry 1 unmapped product label(s): GTXPro. Whitespace-normalised join recovers all of them, so this is a key-hygiene defect, not unknown data.",
+      "metric": 1480,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline c LEFT JOIN raw.products p ON c.product = p.product WHERE c.product IS NOT NULL AND p.product IS NULL"
+    },
+    {
+      "id": "DQ-004",
+      "severity": "warning",
+      "title": "sales_pipeline.account completeness",
+      "detail": "1,425 of 8,800 rows null (16.19%)",
+      "metric": 1425,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE account IS NULL"
+    },
+    {
+      "id": "DQ-005",
+      "severity": "warning",
+      "title": "sales_pipeline.engage_date completeness",
+      "detail": "500 of 8,800 rows null (5.68%)",
+      "metric": 500,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE engage_date IS NULL"
+    },
+    {
+      "id": "DQ-006",
+      "severity": "warning",
+      "title": "sales_pipeline.close_date completeness",
+      "detail": "2,089 of 8,800 rows null (23.74%)",
+      "metric": 2089,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE close_date IS NULL"
+    },
+    {
+      "id": "DQ-007",
+      "severity": "warning",
+      "title": "sales_pipeline.close_value completeness",
+      "detail": "2,089 of 8,800 rows null (23.74%)",
+      "metric": 2089,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE close_value IS NULL"
+    },
+    {
+      "id": "DQ-008",
+      "severity": "pass",
+      "title": "close_date/close_value null exactly on open opportunities",
+      "detail": "0 open-stage rows wrongly carry a close value; 0 closed-stage rows are missing one. The raw null count on close_date is therefore structural, not a defect - it is the open pipeline and must not be imputed.",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE (deal_stage IN ('Prospecting','Engaging') AND (close_date IS NOT NULL OR close_value IS NOT NULL)) OR (deal_stage IN ('Won','Lost') AND (close_date IS NULL OR close_value IS NULL))"
+    },
+    {
+      "id": "DQ-009",
+      "severity": "pass",
+      "title": "close_value sign convention by stage",
+      "detail": "0 Lost rows with non-zero value; 0 Won rows with value <= 0. Lost opportunities are recorded at 0 rather than null, so revenue aggregations must filter on stage, not on close_value > 0.",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE deal_stage='Lost' AND close_value <> 0"
+    },
+    {
+      "id": "DQ-010",
+      "severity": "pass",
+      "title": "opportunity_id is unique at the fact grain",
+      "detail": "0 duplicated opportunity_id values",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM (SELECT opportunity_id FROM raw.sales_pipeline GROUP BY opportunity_id HAVING count(*) > 1)"
+    },
+    {
+      "id": "DQ-011",
+      "severity": "pass",
+      "title": "accounts.account is unique",
+      "detail": "0 duplicate keys",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM (SELECT \"account\" FROM raw.\"accounts\" GROUP BY 1 HAVING count(*)>1)"
+    },
+    {
+      "id": "DQ-012",
+      "severity": "pass",
+      "title": "products.product is unique",
+      "detail": "0 duplicate keys",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM (SELECT \"product\" FROM raw.\"products\" GROUP BY 1 HAVING count(*)>1)"
+    },
+    {
+      "id": "DQ-013",
+      "severity": "pass",
+      "title": "sales_teams.sales_agent is unique",
+      "detail": "0 duplicate keys",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM (SELECT \"sales_agent\" FROM raw.\"sales_teams\" GROUP BY 1 HAVING count(*)>1)"
+    },
+    {
+      "id": "DQ-014",
+      "severity": "pass",
+      "title": "deal_stage is within the canonical stage list",
+      "detail": "0 rows outside ('Prospecting', 'Engaging', 'Won', 'Lost'): None",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE deal_stage NOT IN ('Prospecting', 'Engaging', 'Won', 'Lost')"
+    },
+    {
+      "id": "DQ-015",
+      "severity": "warning",
+      "title": "accounts.sector spelling conforms to the canonical taxonomy",
+      "detail": "1 distinct sector value(s) misspelled: technolgy. Left unrepaired this silently splits the technology segment in every group-by.",
+      "metric": 1,
+      "sql": "SELECT count(*) FROM (SELECT DISTINCT sector FROM raw.accounts) WHERE sector='technolgy'"
+    },
+    {
+      "id": "DQ-016",
+      "severity": "warning",
+      "title": "accounts.office_location spelling conforms to ISO country names",
+      "detail": "1 distinct value(s) misspelled: Philipines",
+      "metric": 1,
+      "sql": "SELECT count(*) FROM (SELECT DISTINCT office_location FROM raw.accounts) WHERE office_location='Philipines'"
+    },
+    {
+      "id": "DQ-017",
+      "severity": "pass",
+      "title": "close_date is never before engage_date",
+      "detail": "0 rows with a negative sales cycle",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE engage_date IS NOT NULL AND close_date IS NOT NULL AND close_date < engage_date"
+    },
+    {
+      "id": "DQ-018",
+      "severity": "pass",
+      "title": "close_date is not in the future",
+      "detail": "0 rows dated after today",
+      "metric": 0,
+      "sql": "SELECT count(*) FROM raw.sales_pipeline WHERE close_date > current_date"
+    }
+  ]
+}

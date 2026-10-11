@@ -1,0 +1,30 @@
+# Two targets, one set of models.
+#
+#   duckdb_dev    - default. Runs against warehouse/crm_warehouse.duckdb, the
+#                   file etl/load.py populates. No cloud account, no billing,
+#                   so CI and local development both use it.
+#   bigquery_prod - the production target. Requires a GCP project and a service
+#                   account key; see bigquery/DEPLOY_TO_BIGQUERY.md. The models
+#                   are unchanged - only the dialect macros in macros/compat.sql
+#                   recompile.
+#
+# This file is committed on purpose: it contains no secrets. Credentials come
+# from environment variables only.
+
+crm_warehouse:
+  target: duckdb_dev
+  outputs:
+    duckdb_dev:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'crm_warehouse.duckdb') }}"
+      threads: 4
+
+    bigquery_prod:
+      type: bigquery
+      method: service-account
+      project: "{{ env_var('BQ_PROJECT_ID') }}"
+      dataset: "{{ env_var('BQ_MARTS_DATASET', 'analytics') }}"
+      threads: 4
+      keyfile: "{{ env_var('BQ_SA_KEYFILE') }}"
+      location: "{{ env_var('BQ_LOCATION', 'US') }}"
+      retries: 3

@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: int_opportunity_enriched
+    description: >
+      Opportunity fact with all foreign keys resolved to staging surrogate
+      keys. The product join uses the normalized label key so the 1,480
+      'GTXPro' rows re-attach to 'GTX Pro' (DQ-003) without source edits.
+      Snapshot-relative measures are anchored to the data's own max close
+      date, not current_date, so builds are deterministic and testable.
+    columns:
+      - name: opportunity_id
+        tests:
+          - unique
+          - not_null
+      - name: product_key
+        description: >
+          0 rows may be unmapped after the normalized join (verified). This
+          not_null test is the enforcement of that guarantee.
+        tests:
+          - not_null
+      - name: sales_agent_key
+        tests:
+          - not_null
+
+  - name: int_data_quality_flags
+    description: >
+      Long-format row-level DQ findings, one row per (check, entity). Zero-
+      finding checks are kept as explicit branches so source regression emits
+      rows without a code change. Severity tiers: error = unresolvable FK,
+      warning = nulls that are real business states, info = vendor encoding
+      choices and repaired spellings.
+    columns:
+      - name: check_id
+        tests:
+          - not_null
+      - name: severity
+        tests:
+          - accepted_values:
+              values: ['error', 'warning', 'info']

@@ -1,0 +1,78 @@
+{
+  "dataset": {
+    "rows": 40040000,
+    "source": "marts.fct_opportunity amplified 4550x, deterministic",
+    "note": "benchmark-only synthetic copies of a real distribution"
+  },
+  "environment": {
+    "engine": "duckdb 1.5.6",
+    "platform": "local single node, Windows",
+    "rounds": 5,
+    "ordering": "interleaved per round, fresh connection per query",
+    "engine_settings": "threads = 4, memory_limit = 1GB (pinned for every query)",
+    "dedup_window": "close_date in 2018 (~7.7M of 40M rows)",
+    "reported": "median of rounds; all rounds kept"
+  },
+  "benchmarks": [
+    {
+      "benchmark": "pair1_partition_pruning",
+      "rounds": 5,
+      "baseline_seconds": {
+        "median": 0.2329,
+        "min": 0.222,
+        "all": [
+          0.3144,
+          0.2329,
+          0.2358,
+          0.224,
+          0.222
+        ]
+      },
+      "optimized_seconds": {
+        "median": 0.0355,
+        "min": 0.0338,
+        "all": [
+          0.0538,
+          0.0368,
+          0.0343,
+          0.0355,
+          0.0338
+        ]
+      },
+      "speedup_median": 6.55
+    },
+    {
+      "benchmark": "pair2_dedup_pattern",
+      "rounds": 5,
+      "baseline_seconds": {
+        "median": 2.0613,
+        "min": 1.8991,
+        "all": [
+          1.8991,
+          2.0613,
+          1.9988,
+          2.2733,
+          2.1236
+        ]
+      },
+      "optimized_seconds": {
+        "median": 1.1955,
+        "min": 1.1485,
+        "all": [
+          1.1485,
+          1.2272,
+          1.1867,
+          1.5617,
+          1.1955
+        ]
+      },
+      "speedup_median": 1.72
+    }
+  ],
+  "io_proxy_pair1": {
+    "baseline_file_bytes": 476695630,
+    "optimized_file_bytes": 32586735,
+    "dataset_total_bytes": 821386559,
+    "bytes_reduction": 0.9316
+  }
+}

@@ -1,0 +1,13 @@
+# Core pipeline (verified on this machine, 2026-10-11)
+duckdb>=1.5,<2
+dbt-core>=1.12,<2
+dbt-duckdb>=1.11,<2
+pandas>=2.2
+pyarrow>=16
+requests>=2.32
+
+# Dashboard
+streamlit>=1.65
+
+# Optional: BigQuery target (see bigquery/DEPLOY_TO_BIGQUERY.md)
+# dbt-bigquery>=1.11,<2
