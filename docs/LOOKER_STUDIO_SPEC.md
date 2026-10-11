@@ -8,6 +8,17 @@ and filter. Point a Looker Studio connector at the BigQuery `reporting`
 dataset (see `bigquery/DEPLOY_TO_BIGQUERY.md`) and every page below is a
 drag-and-drop, no SQL required.
 
+Each page section carries a preview image so the sheet can be reviewed without
+a Google account. **Those images are matplotlib renders of the real warehouse
+views, not Looker Studio screenshots** - Looker Studio has no file format for a
+report, so a layout can only exist inside someone's account. What the previews
+prove is the part that matters: the field set, the aggregation, the chart type
+and the numbers. Regenerate them after any warehouse change:
+
+```
+python docs/render_looker_previews.py   # reads warehouse/crm_warehouse.duckdb
+```
+
 ## Data source setup (once)
 
 | item | value |
@@ -40,6 +51,7 @@ header doing nothing on two of four pages. Put the filter in each page's own
 header and label the unfiltered pages as whole-warehouse.
 
 ## Page 1 - Exec Overview
+![Page 1 preview: six scorecards, won revenue time series, stage funnel, office table](assets/looker_page1_exec_overview.png)
 
 | element | type | source | fields |
 |---|---|---|---|
@@ -58,6 +70,7 @@ Caption to include verbatim on the page: "Win rate is closed-deal
 until a deal closes."
 
 ## Page 2 - Pipeline Health
+![Page 2 preview: monthly closes, open pipeline carried, engagement volume, won revenue trend, monthly detail table](assets/looker_page2_pipeline_health.png)
 
 | element | type | source | fields |
 |---|---|---|---|
@@ -76,6 +89,7 @@ at mixed grains the correct figure is `SUM(won_count) / SUM(won_count +
 lost_count)`, which needs a calculated field if you want it report-wide.
 
 ## Page 3 - Rep Scorecard
+![Page 3 preview: top 10 agents bar, win rate vs volume scatter, full scorecard table](assets/looker_page3_rep_scorecard.png)
 
 | element | type | source | fields |
 |---|---|---|---|
@@ -90,13 +104,14 @@ Notes:
 - Filter: `manager_name` drop-down mirrors the Streamlit page.
 
 ## Page 4 - Data Quality
+![Page 4 preview: four scorecards, severity mix, null profile, findings by check table](assets/looker_page4_data_quality.png)
 
 | element | type | source | fields |
 |---|---|---|---|
-| Checks firing | Scorecard | `rpt_data_quality` | `check_id` (COUNT) |
-| Error-severity rows | Scorecard | `rpt_data_quality` | `flagged_rows` (SUM) filtered `severity = error` |
+| Checks firing | Scorecard | `rpt_data_quality` | `check_id` (COUNT) - currently 7: 4 warning, 3 info |
+| Error-severity rows | Scorecard | `rpt_data_quality` | `flagged_rows` (SUM) filtered `severity = error` - **0, and 0 is the pass condition**: `DQ-003b` is the only error-severity check and it asserts that every product label resolves after the normalized join |
 | Findings by check | Table | `rpt_data_quality` | dims `check_id`, `severity`, `finding`; measure `flagged_rows` (SUM) |
-| Severity mix | Donut | `rpt_data_quality` | dim `severity`, measure `flagged_rows` (SUM) |
+| Severity mix | Bar, log y-axis | `rpt_data_quality` | dim `severity`, measure `flagged_rows` (SUM) - not a donut: two slices at 5,494 and 2,486 are harder to compare as angles than as lengths, and a third severity can appear with a value near zero |
 | Null profile | Bar | `fct_opportunity` | dims `is_account_missing`, `is_pre_engagement`; measure `opportunity_id` (COUNT) |
 | Product repair callout | Text + scorecard | `int_opportunity_enriched` | count where `is_product_key_repaired` = 1,480 |
 

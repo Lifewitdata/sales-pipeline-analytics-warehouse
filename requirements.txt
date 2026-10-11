@@ -9,5 +9,10 @@ requests>=2.32
 # Dashboard
 streamlit>=1.65
 
+# Docs only: renders the page previews embedded in docs/LOOKER_STUDIO_SPEC.md
+# (python docs/render_looker_previews.py). Not imported by the pipeline, the
+# dashboard or CI.
+matplotlib>=3.9
+
 # Optional: BigQuery target (see bigquery/DEPLOY_TO_BIGQUERY.md)
 # dbt-bigquery>=1.11,<2

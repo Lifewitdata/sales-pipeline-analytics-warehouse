@@ -159,6 +159,13 @@ with a claims/evidence table. `bigquery/ddl_warehouse.sql` has the native DDL
   pages over the same views, including the filter scoping above, the "do not
   average `win_rate` across grains" warning, matching theme colours, and an
   acceptance check listing the exact values the built report must reproduce.
+  Each page carries a preview rendered by `docs/render_looker_previews.py` from
+  the built warehouse, so the spec is reviewable without a Google account. Those
+  PNGs are matplotlib renders of the real `reporting.*` views, not Looker Studio
+  screenshots - a Looker Studio report has no file format and can only exist
+  inside an account, which is exactly why the spec is a build sheet.
+
+![Exec Overview preview, rendered from reporting.rpt_exec_overview, marts.fct_pipeline_monthly and marts.fct_opportunity](docs/assets/looker_page1_exec_overview.png)
 
 ## CI
 
