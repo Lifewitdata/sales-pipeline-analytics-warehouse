@@ -72,7 +72,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['Prospecting', 'Engaging', 'Won', 'Lost']
+              arguments:
+                values: ['Prospecting', 'Engaging', 'Won', 'Lost']
       - name: sales_agent_key
         description: >
           FK to stg_crm_sales_teams. Verified zero orphans at source (DQ-002),
@@ -80,8 +81,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_crm_sales_teams')
-              field: sales_agent_key
+              arguments:
+                to: ref('stg_crm_sales_teams')
+                field: sales_agent_key
       - name: stage_order
         tests:
           - not_null

@@ -21,6 +21,10 @@ jobs:
     defaults:
       run:
         working-directory: .
+    env:
+      # Same reason as ci.yml: dbt runs from the repo root, so the DuckDB file
+      # has to be named relative to it.
+      DBT_DUCKDB_PATH: warehouse/crm_warehouse.duckdb
     steps:
       - uses: actions/checkout@v4
 

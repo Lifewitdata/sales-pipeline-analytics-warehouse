@@ -1,0 +1,21 @@
+# Line endings, decided by the repo rather than by each clone's core.autocrlf.
+#
+# The source CSVs are checksummed: etl/extract.py --offline verifies each file
+# against a recorded sha256, and CI runs it on a fresh checkout. Git's default
+# text handling rewrites CRLF to LF in the blob, which silently changes the
+# bytes and makes every checksum fail on Linux. Marking them -text keeps the
+# vendor's bytes exact.
+raw_data/*.csv  -text
+optimization/data/**  binary
+
+# Code and config normalise to LF everywhere, so a Windows working copy and a
+# CI runner see identical files.
+*.py   text eol=lf
+*.sql  text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.md   text eol=lf
+*.json text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf

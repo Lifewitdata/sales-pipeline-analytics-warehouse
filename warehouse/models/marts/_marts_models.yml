@@ -55,14 +55,16 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_sales_agent')
-              field: sales_agent_key
+              arguments:
+                to: ref('dim_sales_agent')
+                field: sales_agent_key
       - name: product_key
         tests:
           - not_null
           - relationships:
-              to: ref('dim_product')
-              field: product_key
+              arguments:
+                to: ref('dim_product')
+                field: product_key
       - name: account_key
         description: >
           Null on the 1,425 opportunities with missing attribution (DQ-004) -
@@ -70,8 +72,9 @@ models:
           behaviour: these rows join to an unknown member, not to nothing.
         tests:
           - relationships:
-              to: ref('dim_account')
-              field: account_key
+              arguments:
+                to: ref('dim_account')
+                field: account_key
       - name: revenue
         tests:
           - not_null

@@ -16,6 +16,11 @@ jobs:
     defaults:
       run:
         working-directory: .   # repo root; dbt gets explicit paths below
+    env:
+      # dbt-duckdb resolves a relative `path` against the process CWD, and dbt
+      # here runs from the repo root with --project-dir warehouse. Pin the file
+      # etl/load.py actually wrote, or dbt silently builds against an empty one.
+      DBT_DUCKDB_PATH: warehouse/crm_warehouse.duckdb
     steps:
       - uses: actions/checkout@v4
 

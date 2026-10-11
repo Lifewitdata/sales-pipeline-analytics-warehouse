@@ -37,4 +37,5 @@ models:
       - name: severity
         tests:
           - accepted_values:
-              values: ['error', 'warning', 'info']
+              arguments:
+                values: ['error', 'warning', 'info']
