@@ -1,14 +1,146 @@
 {
-  "validation": "SQL baseline; DAX engine and Desktop refresh not executed",
+  "validation": "SQL baseline over marts.fct_opportunity; compare with powerbi/validate_project.py",
   "values": {
     "opportunities": 8800,
-    "won_revenue": 10005534.0,
     "won_deals": 4238,
     "closed_deals": 6711,
+    "won_revenue": 10005534.0,
     "open_opportunities": 2089,
+    "average_open_age_days": 198.8162366268093,
     "average_won_sales_cycle_days": 51.781972628598396,
     "missing_account_opportunities": 1425,
     "win_rate": 0.6315005215318135,
-    "average_won_deal": 2360.9093912222747
+    "average_won_deal": 2360.9093912222747,
+    "missing_account_rate": 0.16193181818181818
+  },
+  "by_office": {
+    "Central": {
+      "opportunities": 3512,
+      "won_deals": 1629,
+      "closed_deals": 2604,
+      "won_revenue": 3346293.0,
+      "open_opportunities": 908,
+      "missing_account_opportunities": 611,
+      "win_rate": 0.6255760368663594,
+      "missing_account_rate": 0.1739749430523918
+    },
+    "East": {
+      "opportunities": 2291,
+      "won_deals": 1171,
+      "closed_deals": 1858,
+      "won_revenue": 3090594.0,
+      "open_opportunities": 433,
+      "missing_account_opportunities": 296,
+      "win_rate": 0.6302475780409041,
+      "missing_account_rate": 0.12920122217372326
+    },
+    "West": {
+      "opportunities": 2997,
+      "won_deals": 1438,
+      "closed_deals": 2249,
+      "won_revenue": 3568647.0,
+      "open_opportunities": 748,
+      "missing_account_opportunities": 518,
+      "win_rate": 0.6393952867941307,
+      "missing_account_rate": 0.1728395061728395
+    }
+  },
+  "by_series": {
+    "GTK": {
+      "opportunities": 40,
+      "won_deals": 15,
+      "closed_deals": 25,
+      "won_revenue": 400612.0,
+      "open_opportunities": 15,
+      "missing_account_opportunities": 8,
+      "win_rate": 0.6,
+      "missing_account_rate": 0.2
+    },
+    "GTX": {
+      "opportunities": 5697,
+      "won_deals": 2776,
+      "closed_deals": 4379,
+      "won_revenue": 7344767.0,
+      "open_opportunities": 1318,
+      "missing_account_opportunities": 894,
+      "win_rate": 0.6339346882849966,
+      "missing_account_rate": 0.1569246972090574
+    },
+    "MG": {
+      "opportunities": 3063,
+      "won_deals": 1447,
+      "closed_deals": 2307,
+      "won_revenue": 2260155.0,
+      "open_opportunities": 756,
+      "missing_account_opportunities": 523,
+      "win_rate": 0.6272214997832684,
+      "missing_account_rate": 0.17074763303950374
+    }
+  },
+  "by_close_month": {
+    "2017-03-01": {
+      "won_revenue": 1134672.0,
+      "revenue_previous_month": null,
+      "revenue_previous_calendar_month": null,
+      "revenue_mom_change": null
+    },
+    "2017-04-01": {
+      "won_revenue": 721932.0,
+      "revenue_previous_month": 1110533.0,
+      "revenue_previous_calendar_month": 1134672.0,
+      "revenue_mom_change": -0.34992296491864716
+    },
+    "2017-05-01": {
+      "won_revenue": 1025713.0,
+      "revenue_previous_month": 721932.0,
+      "revenue_previous_calendar_month": 721932.0,
+      "revenue_mom_change": 0.4207889385703917
+    },
+    "2017-06-01": {
+      "won_revenue": 1338466.0,
+      "revenue_previous_month": 1002913.0,
+      "revenue_previous_calendar_month": 1025713.0,
+      "revenue_mom_change": 0.3345783731988717
+    },
+    "2017-07-01": {
+      "won_revenue": 696932.0,
+      "revenue_previous_month": 1338466.0,
+      "revenue_previous_calendar_month": 1338466.0,
+      "revenue_mom_change": -0.47930541380954017
+    },
+    "2017-08-01": {
+      "won_revenue": 1050059.0,
+      "revenue_previous_month": 696932.0,
+      "revenue_previous_calendar_month": 696932.0,
+      "revenue_mom_change": 0.5066878834663927
+    },
+    "2017-09-01": {
+      "won_revenue": 1235264.0,
+      "revenue_previous_month": 1042230.0,
+      "revenue_previous_calendar_month": 1050059.0,
+      "revenue_mom_change": 0.18521247709238844
+    },
+    "2017-10-01": {
+      "won_revenue": 731980.0,
+      "revenue_previous_month": 1235264.0,
+      "revenue_previous_calendar_month": 1235264.0,
+      "revenue_mom_change": -0.40743031449147715
+    },
+    "2017-11-01": {
+      "won_revenue": 938943.0,
+      "revenue_previous_month": 714849.0,
+      "revenue_previous_calendar_month": 731980.0,
+      "revenue_mom_change": 0.31348438621303243
+    },
+    "2017-12-01": {
+      "won_revenue": 1131573.0,
+      "revenue_previous_month": 938943.0,
+      "revenue_previous_calendar_month": 938943.0,
+      "revenue_mom_change": 0.2051562235407261
+    }
+  },
+  "all_time_mom": {
+    "revenue_previous_month": 8802062.0,
+    "revenue_mom_change": 0.1367261443966198
   }
 }

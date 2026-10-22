@@ -3,8 +3,9 @@
 An ELT warehouse for a CRM sales pipeline, built end to end: Python extracts
 and loads CSV into a DuckDB landing schema, dbt models it into star-schema
 marts and reporting views, 51 tests prove the numbers, a Streamlit dashboard
-renders them, and a 40-million-row benchmark measures the storage-layout
-optimisation that actually mattered.
+renders them, a Power BI project re-implements the same metrics as 13 DAX
+measures held to a SQL baseline, and a 40-million-row benchmark measures the
+storage-layout optimisation that actually mattered.
 
 Every figure in this README was produced by running the code in this repo. The
 commands to reproduce them are below.
@@ -25,14 +26,30 @@ CSV files ──> etl/extract.py ──> etl/load.py ──> raw.* (DuckDB, land
 
 ## Power BI + DAX
 
-An editable [Power BI project](powerbi/README.md) now complements the Streamlit
-app: three report pages, 13 DAX measures, Power Query imports, and a star-schema
-semantic model. Open `powerbi/SalesPipeline.pbip`, set the `DataFolder` parameter,
-and refresh. CSV snapshots from the dbt marts are included.
+An editable [Power BI project](powerbi/README.md) complements the Streamlit app:
+three report pages, an import-mode star-schema model, Power Query CSV imports,
+and 13 DAX measures. `powerbi/build_project.py` exports the marts to CSV, so
+opening `powerbi/SalesPipeline.pbip` needs no Python, DuckDB or credentials -
+set the `DataFolder` parameter and refresh.
 
-The warehouse tests and SQL/CSV reconciliation pass. **Power BI Desktop refresh,
-DAX execution, and visual rendering remain pending**; this source has not been
-published to Power BI Service. See the opening steps and acceptance values in
+What is proven: `python powerbi/validate_project.py` holds all 13 measures to a
+SQL baseline derived from the dbt marts - whole totals, per office, per product
+series, per close month - by re-implementing each measure in Python
+(`powerbi/dax_engine.py`) over the same CSVs Power Query imports, then re-checks
+every figure published in the guide against that baseline. The same run validates
+the report JSON against Microsoft's PBIR schemas, resolves every visual's bound
+fields against the model, proves `measures.dax` matches the measures installed in
+`model.bim`, and proves the fact table's stage labels are equivalent to the
+boolean flags the SQL filters on.
+
+![Sales performance page, rendered from the committed PBIR layout and dax_engine.py](powerbi/assets/report_page1_sales_performance.png)
+
+What is not: Power BI Desktop has never opened this project, so the Microsoft DAX
+and Power Query (M) engines were never executed, and nothing is published to
+Power BI Service. `dax_engine.py` re-implements the definitions rather than
+running them, and the PNG above is a matplotlib render of the authored layout,
+not a Desktop screenshot. **Desktop refresh and visual rendering remain pending**;
+the acceptance steps and expected values are in
 [the Power BI guide](powerbi/README.md).
 
 ## Quickstart
@@ -167,6 +184,11 @@ with a claims/evidence table. `bigquery/ddl_warehouse.sql` has the native DDL
   purpose: only `rpt_pipeline_health` and `rpt_rep_scorecard` carry a
   `regional_office` column, so a report-wide control would sit in the sidebar
   doing nothing on two of four pages.
+- **`powerbi/`** - the editable Power BI Project described above: three pages, an
+  import-mode model, 13 DAX measures, and a page preview rendered from the
+  committed PBIR JSON by `powerbi/render_report_previews.py`. Same convention as
+  the Looker previews - matplotlib renders of the real numbers, not screenshots,
+  because a Power BI report only exists once someone opens it in Desktop.
 - **`docs/LOOKER_STUDIO_SPEC.md`** - field-by-field build spec for the same four
   pages over the same views, including the filter scoping above, the "do not
   average `win_rate` across grains" warning, matching theme colours, and an
@@ -195,23 +217,31 @@ etl/            extract.py · load.py · profile_source.py
 raw_data/       5 source CSVs (Maven Analytics CRM Sales Opportunities)
 warehouse/      dbt_project.yml · profiles.yml · macros/ · models/ · tests/
 dashboard/      streamlit_app.py · db.py · app_pages/ · .streamlit/config.toml
+powerbi/        SalesPipeline.pbip · .SemanticModel/ · .Report/ · data/ · measures.dax
+                build_project.py · validate_project.py · dax_engine.py · render_report_previews.py
 optimization/   generate_big_dataset.py · run_benchmark.py · RESULTS.md · results.json
 bigquery/       ddl_warehouse.sql · DEPLOY_TO_BIGQUERY.md
 docs/           METRIC_DEFINITIONS.md · DATA_QUALITY_FINDINGS.md · LOOKER_STUDIO_SPEC.md
 reports/        source_profile.json (18 checks, with their SQL)
 ```
 
-Nothing generated is committed: `*.duckdb`, `warehouse/target/`, `logs/`, and
-the ~2 GB benchmark Parquet are gitignored. Credentials come from environment
-variables only - no keyfile in the tree, and `.gitignore` blocks
+The incidental outputs are gitignored - `*.duckdb`, `warehouse/target/`, `logs/`,
+and the ~2 GB benchmark Parquet. What is committed is derived by a script named
+in the section that owns it: `reports/source_profile.json`
+(`etl/profile_source.py`), the Looker and Power BI page previews (the two
+`render_*_previews.py`), and `powerbi/data/*.csv` with
+`powerbi/expected_kpis.json` (`powerbi/build_project.py`). Credentials come from
+environment variables only - no keyfile in the tree, and `.gitignore` blocks
 `service-account*.json` anyway.
 
 ## What this project is not
 
 It is a single static CSV extract, not a CDC feed from a live CRM, so there is
 no incremental-model story here beyond the manifest and idempotent loads. The
-BigQuery target has not been executed. The benchmark dataset is synthetic
-amplification, used only for the two measured queries. The source is a public
-sample dataset from Maven Analytics
+BigQuery target has not been executed. The Power BI project is verified by
+re-implementing its measures against the warehouse, not by running them: Power BI
+Desktop has never opened it and nothing is published to Power BI Service. The
+benchmark dataset is synthetic amplification, used only for the two measured
+queries. The source is a public sample dataset from Maven Analytics
 ([CRM Sales Opportunities](https://mavenanalytics.io/data-playground/crm-sales-opportunities));
 no proprietary or personal data is in this repository.

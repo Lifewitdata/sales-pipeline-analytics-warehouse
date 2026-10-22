@@ -29,6 +29,40 @@ MEASURES = [
  ('Revenue MoM Change', 'VAR PreviousRevenue = [Revenue Previous Month] RETURN IF(NOT ISBLANK(PreviousRevenue), DIVIDE([Won Revenue] - PreviousRevenue, PreviousRevenue))', '0.0%'),
 ]
 
+# Revenue Previous Month, month by month. `shifted` is the DATEADD result: each
+# day of the slicer month moved back one month, clamped (2017-03-31 -> 2017-02-28)
+# and de-duplicated, because it filters a column rather than adding rows. The
+# calendar column beside it is the intuitive reading; where the two differ, a
+# 30-day month is dropping the 31st of the month before it.
+MONTH_SQL = """
+WITH won AS (SELECT close_date, revenue FROM marts.fct_opportunity WHERE is_won),
+months AS (SELECT DISTINCT date_trunc('month', close_date)::date AS month_start FROM won),
+shifted AS (
+    SELECT DISTINCT m.month_start, (d.date_day + INTERVAL '-1 month')::date AS prev_day
+    FROM months m
+    JOIN marts.dim_date d
+      ON d.date_day >= m.month_start AND d.date_day < m.month_start + INTERVAL '1 month'
+)
+SELECT m.month_start,
+       (SELECT sum(revenue) FROM won w
+         WHERE date_trunc('month', w.close_date)::date = m.month_start)       AS won_revenue,
+       (SELECT sum(w.revenue) FROM won w JOIN shifted s
+          ON s.month_start = m.month_start AND w.close_date = s.prev_day)     AS revenue_previous_month,
+       (SELECT sum(revenue) FROM won w
+         WHERE date_trunc('month', w.close_date)::date
+               = (m.month_start - INTERVAL '1 month')::date)                  AS revenue_previous_calendar_month
+FROM months m ORDER BY 1
+"""
+
+# The same shift with no date filter in context, which is what an unfiltered
+# visual actually evaluates.
+DATEADD_ALL_SQL = """
+SELECT sum(revenue) FROM marts.fct_opportunity
+WHERE is_won AND close_date IN (
+    SELECT DISTINCT (date_day + INTERVAL '-1 month')::date FROM marts.dim_date)
+"""
+
+
 def build():
     con = duckdb.connect(str(REPO/'warehouse/crm_warehouse.duckdb'), read_only=True)
     specs = {}
@@ -97,10 +131,24 @@ def build():
     query='EVALUATE ROW(\n'+',\n'.join('    "'+n+'", ['+n+']' for n,_,_ in MEASURES[:11])+'\n)\n'
     qpath=ROOT/'SalesPipeline.SemanticModel/DAXQueries/Acceptance.dax';qpath.parent.mkdir(exist_ok=True);qpath.write_text(query)
     (ROOT/'measures.dax').write_text('// Reference copy; measures are already installed in model.bim\n\n'+'\n\n'.join(n+' =\n'+e for n,e,_ in MEASURES)+'\n')
-    sql="SELECT count(*) opportunities, sum(revenue) won_revenue, count(*) FILTER (WHERE is_won) won_deals, count(*) FILTER (WHERE is_closed) closed_deals, count(*) FILTER (WHERE is_open) open_opportunities, avg(sales_cycle_days) FILTER (WHERE is_won) average_won_sales_cycle_days, count(*) FILTER (WHERE is_account_missing) missing_account_opportunities FROM marts.fct_opportunity"
-    cur=con.execute(sql);expected=dict(zip([d[0] for d in cur.description],cur.fetchone()));expected['win_rate']=expected['won_deals']/expected['closed_deals'];expected['average_won_deal']=expected['won_revenue']/expected['won_deals']
+    # Baseline is derived in SQL from the dbt marts. Every measure is filtered
+    # the way its DAX is: won revenue never leans on "non-won rows happen to be
+    # zero", and the MoM block reproduces DATEADD's day-by-day shift, including
+    # the end-of-month clamp and the duplicate collapse a filter table implies.
+    sql="SELECT count(*) opportunities, count(*) FILTER (WHERE is_won) won_deals, count(*) FILTER (WHERE is_closed) closed_deals, sum(revenue) FILTER (WHERE is_won) won_revenue, count(*) FILTER (WHERE is_open) open_opportunities, avg(days_open_at_snapshot) FILTER (WHERE is_open) average_open_age_days, avg(sales_cycle_days) FILTER (WHERE is_won) average_won_sales_cycle_days, count(*) FILTER (WHERE is_account_missing) missing_account_opportunities FROM marts.fct_opportunity"
+    cur=con.execute(sql);expected=dict(zip([d[0] for d in cur.description],cur.fetchone()));expected['win_rate']=expected['won_deals']/expected['closed_deals'];expected['average_won_deal']=expected['won_revenue']/expected['won_deals'];expected['missing_account_rate']=expected['missing_account_opportunities']/expected['opportunities']
     assert expected['opportunities']==8800 and expected['won_revenue']==10005534 and expected['open_opportunities']==2089
-    write(ROOT/'expected_kpis.json',{'validation':'SQL baseline; DAX engine and Desktop refresh not executed','values':expected})
-    print(json.dumps(expected,indent=2))
+    for name,fk,attr,table in [('office','sales_agent_key','regional_office','dim_sales_agent'),('series','product_key','product_series','dim_product')]:
+        rows=con.execute(f"SELECT d.{attr} AS name, count(*) AS opportunities, count(*) FILTER (WHERE f.is_won) AS won_deals, count(*) FILTER (WHERE f.is_closed) AS closed_deals, sum(f.revenue) FILTER (WHERE f.is_won) AS won_revenue, count(*) FILTER (WHERE f.is_open) AS open_opportunities, count(*) FILTER (WHERE f.is_account_missing) AS missing_account_opportunities FROM marts.fct_opportunity f JOIN marts.{table} d ON d.{fk}=f.{fk} GROUP BY 1 ORDER BY 1").fetchall()
+        expected['by_'+name]={r[0]:{'opportunities':r[1],'won_deals':r[2],'closed_deals':r[3],'won_revenue':r[4],'open_opportunities':r[5],'missing_account_opportunities':r[6],'win_rate':(r[2]/r[3] if r[3] else None),'missing_account_rate':r[6]/r[1]} for r in rows}
+    months=con.execute(MONTH_SQL).fetchall()
+    expected['by_close_month']={str(r[0]):{'won_revenue':r[1],'revenue_previous_month':r[2],'revenue_previous_calendar_month':r[3],'revenue_mom_change':(None if not r[2] else ((r[1] or 0)-r[2])/r[2])} for r in months}
+    prior=con.execute(DATEADD_ALL_SQL).fetchone()[0]
+    expected['all_time_mom']={'revenue_previous_month':prior,'revenue_mom_change':(None if not prior else (expected['won_revenue']-prior)/prior)}
+    sections={k:expected.pop(k) for k in ('by_office','by_series','by_close_month','all_time_mom')}
+    payload={'validation':'SQL baseline over marts.fct_opportunity; compare with powerbi/validate_project.py','values':expected}
+    payload.update(sections)
+    write(ROOT/'expected_kpis.json',payload)
+    print(json.dumps(payload,indent=2))
 
 if __name__=='__main__':build()

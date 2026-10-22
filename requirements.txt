@@ -10,7 +10,8 @@ requests>=2.32
 streamlit>=1.65
 
 # Docs only: renders the page previews embedded in docs/LOOKER_STUDIO_SPEC.md
-# (python docs/render_looker_previews.py). Not imported by the pipeline, the
+# (python docs/render_looker_previews.py) and powerbi/README.md
+# (python powerbi/render_report_previews.py). Not imported by the pipeline, the
 # dashboard or CI.
 matplotlib>=3.9
 
