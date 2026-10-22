@@ -1,0 +1,101 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "quality_6",
+  "position": {
+    "x": 640,
+    "y": 220,
+    "z": 6,
+    "width": 600,
+    "height": 460,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "deal_stage"
+                }
+              },
+              "queryRef": "fct_opportunity.deal_stage",
+              "nativeQueryRef": "deal_stage"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Opportunities"
+                }
+              },
+              "queryRef": "fct_opportunity.Opportunities",
+              "nativeQueryRef": "Opportunities"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Missing Account Opportunities"
+                }
+              },
+              "queryRef": "fct_opportunity.Missing Account Opportunities",
+              "nativeQueryRef": "Missing Account Opportunities"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Missing Account Rate"
+                }
+              },
+              "queryRef": "fct_opportunity.Missing Account Rate",
+              "nativeQueryRef": "Missing Account Rate"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Coverage by stage \u2014 null accounts retained'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

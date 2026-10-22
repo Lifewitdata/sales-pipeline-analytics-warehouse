@@ -30,3 +30,7 @@ Thumbs.db
 service-account*.json
 *.pem
 credentials.yml
+
+# Power BI local data cache and user settings
+**/.pbi/cache.abf
+**/.pbi/localSettings.json

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "pipeline_6",
+  "position": {
+    "x": 620,
+    "y": 220,
+    "z": 6,
+    "width": 620,
+    "height": 260,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_sales_agent"
+                    }
+                  },
+                  "Property": "regional_office"
+                }
+              },
+              "queryRef": "dim_sales_agent.regional_office",
+              "nativeQueryRef": "regional_office"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Open Opportunities"
+                }
+              },
+              "queryRef": "fct_opportunity.Open Opportunities",
+              "nativeQueryRef": "Open Opportunities"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Open opportunities by office'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

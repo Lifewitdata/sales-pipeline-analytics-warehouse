@@ -1,0 +1,87 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "pipeline_7",
+  "position": {
+    "x": 20,
+    "y": 500,
+    "z": 7,
+    "width": 1220,
+    "height": 200,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_sales_agent"
+                    }
+                  },
+                  "Property": "agent_name"
+                }
+              },
+              "queryRef": "dim_sales_agent.agent_name",
+              "nativeQueryRef": "agent_name"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Open Opportunities"
+                }
+              },
+              "queryRef": "fct_opportunity.Open Opportunities",
+              "nativeQueryRef": "Open Opportunities"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Average Open Age Days"
+                }
+              },
+              "queryRef": "fct_opportunity.Average Open Age Days",
+              "nativeQueryRef": "Average Open Age Days"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Open age at source snapshot; prospecting dates may be blank'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "validation": "SQL baseline; DAX engine and Desktop refresh not executed",
+  "values": {
+    "opportunities": 8800,
+    "won_revenue": 10005534.0,
+    "won_deals": 4238,
+    "closed_deals": 6711,
+    "open_opportunities": 2089,
+    "average_won_sales_cycle_days": 51.781972628598396,
+    "missing_account_opportunities": 1425,
+    "win_rate": 0.6315005215318135,
+    "average_won_deal": 2360.9093912222747
+  }
+}

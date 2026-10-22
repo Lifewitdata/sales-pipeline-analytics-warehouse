@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "executive_6",
+  "position": {
+    "x": 950,
+    "y": 90,
+    "z": 6,
+    "width": 290,
+    "height": 110,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Average Won Sales Cycle Days"
+                }
+              },
+              "queryRef": "fct_opportunity.Average Won Sales Cycle Days",
+              "nativeQueryRef": "Average Won Sales Cycle Days"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Average Won Sales Cycle Days'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

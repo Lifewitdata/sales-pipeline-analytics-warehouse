@@ -1,0 +1,13 @@
+EVALUATE ROW(
+    "Opportunities", [Opportunities],
+    "Won Deals", [Won Deals],
+    "Closed Deals", [Closed Deals],
+    "Won Revenue", [Won Revenue],
+    "Win Rate", [Win Rate],
+    "Average Won Deal", [Average Won Deal],
+    "Average Won Sales Cycle Days", [Average Won Sales Cycle Days],
+    "Open Opportunities", [Open Opportunities],
+    "Average Open Age Days", [Average Open Age Days],
+    "Missing Account Opportunities", [Missing Account Opportunities],
+    "Missing Account Rate", [Missing Account Rate]
+)

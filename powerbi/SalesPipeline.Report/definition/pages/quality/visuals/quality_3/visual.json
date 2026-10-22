@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "quality_3",
+  "position": {
+    "x": 430,
+    "y": 90,
+    "z": 3,
+    "width": 390,
+    "height": 110,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Missing Account Opportunities"
+                }
+              },
+              "queryRef": "fct_opportunity.Missing Account Opportunities",
+              "nativeQueryRef": "Missing Account Opportunities"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Missing Account Opportunities'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

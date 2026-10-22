@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "quality_5",
+  "position": {
+    "x": 20,
+    "y": 220,
+    "z": 5,
+    "width": 590,
+    "height": 460,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_sales_agent"
+                    }
+                  },
+                  "Property": "regional_office"
+                }
+              },
+              "queryRef": "dim_sales_agent.regional_office",
+              "nativeQueryRef": "regional_office"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Missing Account Opportunities"
+                }
+              },
+              "queryRef": "fct_opportunity.Missing Account Opportunities",
+              "nativeQueryRef": "Missing Account Opportunities"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Missing account attribution by office'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

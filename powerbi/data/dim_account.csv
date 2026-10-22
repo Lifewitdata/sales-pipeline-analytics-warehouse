@@ -1,0 +1,86 @@
+account_key,account_name,sector,year_established,annual_revenue,employee_count,office_country,is_domestic,parent_account_name,parent_account_key,is_subsidiary
+10b90124580d9c0d5d34d7ffec7ed099,Ron-tech,medical,1992,3922.42,6837,United States,true,,,false
+150502e0c966b578706c67c05097586f,Rantouch,telecommunications,1994,1188.42,3015,United States,true,,,false
+16e4a8bc173154da57d7837f9ef01e4d,Zencorporation,technology,2011,40.79,142,China,false,,,false
+17024d494df8cd37a3e3f6de2c64b00f,Nam-zim,services,1987,405.59,1179,Brazil,false,Warephase,364172ad7f5877ef9f7ae3b21a161401,true
+198aa8be4c2be19face96e39f487d281,Massive Dynamic,entertainment,1989,665.06,1095,United States,true,,,false
+2939a5db1eee4ebb3f3c800ca6573d3c,dambase,marketing,1995,2173.98,2928,United States,true,Inity,ac3d100965c44c6c4d7b3446087cc126,true
+2a41394b2393bad28e762c557729b7e2,Treequote,telecommunications,1988,5266.09,8595,United States,true,Sonron,91193243189b259820e28e609f6d3835,true
+2daab315887876a2dfbcdbe3976fb3a8,Ganjaflex,retail,1995,5158.71,17479,Japan,false,,,false
+2fc3ab2af757108c867aafd9c695391a,Condax,medical,2017,4.54,9,United States,true,,,false
+3318428dfd4b87c8dfb75a0606484b41,Gogozoom,telecommunications,2007,86.68,187,United States,true,Sonron,91193243189b259820e28e609f6d3835,true
+364172ad7f5877ef9f7ae3b21a161401,Warephase,services,1997,2041.73,5276,United States,true,,,false
+3ab5668d2d85eb7483a9b78c8469e030,Ontomedia,employment,1997,882.12,2769,United States,true,,,false
+3dc55f8c63dd4be51a2a06408e8cb53a,Toughzap,retail,1995,332.43,799,United States,true,,,false
+40760f094ea4b4fb923af3bcb935fb24,Green-Plus,services,2003,692.19,1922,United States,true,,,false
+409234406a8d2764d80ecb1363fcf4a2,Kan-code,software,1982,11698.03,34288,United States,true,,,false
+454b11e382d1f1364797a2dd057d52cd,Umbrella Corporation,finance,1998,2022.14,5113,United States,true,,,false
+4d6e82f4af91026ddd36c61745311cd1,Blackzim,retail,2009,497.11,1588,United States,true,,,false
+503b1771d8a8040b86eb78804d133190,Zoomit,entertainment,1992,324.19,978,United States,true,,,false
+54fa46667b259b1b9c55ca955b2a5d46,Conecom,technology,2005,1520.66,1806,United States,true,,,false
+55b7de3b01a9449b8fa855b24ae92233,Gekko & Co,retail,1990,2520.83,3502,United States,true,,,false
+595e51646f6b04f19c9c7d11019d92e9,Singletechno,retail,1996,2214.94,5374,United States,true,,,false
+5cc47a78dc00a896e800f6a6da98591c,Cancity,retail,2001,718.62,2448,United States,true,,,false
+5f879cb54864b5ae3b9b7c1a7ce6873d,Bubba Gump,software,2002,987.39,2253,United States,true,,,false
+64a26110e152694fbd77ec18c3675554,Codehow,software,1998,2714.9,2641,United States,true,Acme Corporation,655bdb05b2ae9d6b655c6a8ae97c3e43,true
+655bdb05b2ae9d6b655c6a8ae97c3e43,Acme Corporation,technology,1996,1100.04,2822,United States,true,,,false
+66dc5c619baba45c1e47f76b105c32a9,Dalttechnology,software,2013,98.79,96,United States,true,Bubba Gump,5f879cb54864b5ae3b9b7c1a7ce6873d,true
+6b28e95a97b71937c9f9144740ea4a7e,Opentech,finance,1994,355.23,853,United States,true,,,false
+6fb544b6760221ab7dba07b4e849814c,Bluth Company,technology,1993,1242.32,3027,United States,true,Acme Corporation,655bdb05b2ae9d6b655c6a8ae97c3e43,true
+718b7d8f80f7b5f9579a24013b9d9771,Dontechi,software,1982,4618.0,10083,United States,true,,,false
+72e91210fae7e3c696f8ccc70d58161b,Lexiqvolax,medical,2004,1618.89,3889,United States,true,,,false
+73ae34cb3021405cdd6c1bbaae9fd295,Statholdings,employment,1997,291.27,586,United States,true,,,false
+760888338a5143640fbb46f85eb42bf3,Isdom,medical,2002,3178.24,4540,United States,true,,,false
+761cc19cf0d9ead726b68cfa2ca9483a,Bioplex,medical,1991,326.82,1016,United States,true,,,false
+78bc545b43775e382ccbfed91adb628c,Xx-holding,finance,1993,7537.24,20293,United States,true,,,false
+797dbd29f499a24f9982bef1e34ed30d,Betasoloin,medical,1999,251.41,495,United States,true,,,false
+7ded2e12402d66463f3b723a01822cb7,Scottech,marketing,2012,45.39,100,United States,true,Inity,ac3d100965c44c6c4d7b3446087cc126,true
+7f4c3c68b46b7a4c13c4e91356ffed41,Faxquote,telecommunications,1995,1825.82,5595,United States,true,Sonron,91193243189b259820e28e609f6d3835,true
+8005f075dd326051f1be5df466ea278b,Zumgoity,medical,1984,441.08,1210,United States,true,,,false
+87b32ffea9a5347470d664911fa806c1,Hottechi,technology,1997,8170.38,16499,Korea,false,,,false
+8bd437d4aaee3f3647455cac008d78f1,Genco Pura Olive Oil Company,retail,2007,894.33,1635,Italy,false,,,false
+8cda13f4843eea970d9d563f909d598f,Plexzap,retail,2001,2437.85,4874,United States,true,,,false
+8eb4e60b0d4834480b9f7ca8c9cffe3c,Donquadtech,technology,1992,1712.68,3194,United States,true,Acme Corporation,655bdb05b2ae9d6b655c6a8ae97c3e43,true
+909abad33775ba2777c08a5165f0fde8,Mathtouch,marketing,1984,3027.46,9516,Jordan,false,,,false
+91193243189b259820e28e609f6d3835,Sonron,telecommunications,1999,1699.85,5108,United States,true,,,false
+9141ee5ee1c329e4b00a404b135d64ab,Bioholding,medical,2012,587.34,1356,Philippines,false,,,false
+961a6bca1a94eb93a31d7b18f3d68032,Globex Corporation,technology,2000,1223.72,2497,Norway,false,,,false
+987b06577feb70311b93e151199ea73f,Goodsilron,marketing,2000,2952.73,5107,United States,true,,,false
+99f3b4b64212274021c80f0b0af13236,Betatech,medical,1986,647.18,1185,Kenya,false,,,false
+9cbdf376d3891994af3fe254f5f39f11,Plusstrip,entertainment,2002,349.81,315,United States,true,,,false
+9ecd0500c7ec96f365db121e9dce9bf2,Labdrill,medical,1985,2741.37,9226,United States,true,,,false
+a2fb7b2da318edb4c2940f7a541c75c8,Zathunicon,retail,2010,71.12,144,United States,true,,,false
+a37e3325ddf2f9e6cfdeea128ff5b30c,Hatfan,services,1982,792.46,1299,United States,true,,,false
+a586edb3ff2c4f16faf52ba4cc0b3132,Cheers,entertainment,1993,4269.9,6472,United States,true,Massive Dynamic,198aa8be4c2be19face96e39f487d281,true
+a72fa93075e559167fb0733f0fbfe641,Rundofase,technology,1983,1008.06,1238,United States,true,,,false
+a785eb70cc4f06402f73c99ea0f7637e,Fasehatice,retail,1990,4968.91,7523,United States,true,,,false
+a86c55396624f5df4823898f977c014c,Finhigh,finance,2006,1102.43,1759,United States,true,,,false
+ac3d100965c44c6c4d7b3446087cc126,Inity,marketing,1986,2403.58,8801,United States,true,,,false
+aea564a0ebb5e549ad4449fa69b9d250,Stanredtax,finance,1987,1698.2,3798,United States,true,,,false
+b4fdbe068f3019c2e620ce16f8a667ce,Konex,technology,1980,7708.38,13756,United States,true,,,false
+bbc6a0e5da6e732ce86283e8aa6c380f,Y-corporation,employment,1983,2871.35,9561,United States,true,,,false
+c4caa404449a24996c1b8cbee424de4c,Sumace,retail,2000,167.89,493,Romania,false,,,false
+c4f99029cad96b2f6d9c44a548f84e9a,Domzoom,entertainment,1998,217.87,551,United States,true,,,false
+c524bc4d4dc973d4c00a6e211ef42bf4,Donware,marketing,1999,1197.44,2570,United States,true,,,false
+c75a5008c668b35500ec2a5551fc643f,Finjob,employment,1988,2059.9,3644,United States,true,,,false
+cc6724513dbee49da80772dc24e500aa,Silis,medical,1994,2818.38,6290,United States,true,,,false
+cc86c0a16c12a6b30e71f8946bb060e5,Plussunin,retail,2003,1419.98,4018,United States,true,,,false
+cf0543dae40fe9c929ce17d0be5d15a2,Newex,services,1991,1012.72,3492,Germany,false,,,false
+d8123facfe80d0a907f96ac10bb45b20,Golddex,finance,2008,52.5,165,United States,true,,,false
+e0ea6b9ed5b553547cbc8a30d3a302f1,Doncon,technology,2010,587.72,1501,United States,true,,,false
+e149d7099f7944ae74fd89ebe01d72ca,Vehement Capital Partners,finance,1993,646.1,883,United States,true,Golddex,d8123facfe80d0a907f96ac10bb45b20,true
+e5038ccdda79b17d6fad7cdd0f4298d4,Scotfind,software,1996,6354.87,16780,United States,true,Bubba Gump,5f879cb54864b5ae3b9b7c1a7ce6873d,true
+ea8571c0e6b4a3c67f72c03e13ce8f95,Streethex,retail,1988,1376.8,1165,Belgium,false,,,false
+eabed9f01218af805bb3a6a278800858,Yearin,retail,2005,2261.05,3851,United States,true,,,false
+ec00507031e110e616babb5a236ee447,Funholding,finance,1991,2819.5,7227,United States,true,Golddex,d8123facfe80d0a907f96ac10bb45b20,true
+ec291ab0771ebecdf5340aafcd848048,Iselectrics,technology,2011,527.11,1428,United States,true,Acme Corporation,655bdb05b2ae9d6b655c6a8ae97c3e43,true
+ecd38a0163fcbb45ddb308a2f867490a,Sunnamplex,marketing,2008,894.37,1593,Poland,false,,,false
+ef967b8bac81ed11ed46201fa5bf2745,Groovestreet,retail,2003,223.8,299,United States,true,,,false
+f540eeb22782942a487b4a1c965882dc,Konmatfix,marketing,1985,375.43,1190,United States,true,,,false
+f8e3cba694ab56921e05519065d6b603,Initech,telecommunications,1994,6395.05,20275,United States,true,,,false
+fad0c69fe9c07a0504c040cecee5e4d4,Kinnamplus,retail,2004,702.72,1831,United States,true,,,false
+fbcb870775a47f50cfe54cc870384afd,Zotware,software,1979,4478.47,13809,United States,true,,,false
+fc0b19664ac2c5d000aeb2d07a1d7c7f,J-Texon,retail,1989,1388.67,3583,United States,true,,,false
+fd4fe088a3e225a3f4ca84deff066f08,Xx-zobam,entertainment,1989,3838.39,8274,United States,true,,,false
+fe684d5a36205033ca974c481ff3dede,The New York Inquirer,medical,1996,439.21,792,United States,true,,,false
+fea48409f4ae610ebcae3983112e38d6,Rangreen,technology,1987,2938.67,8775,Panama,false,,,false
