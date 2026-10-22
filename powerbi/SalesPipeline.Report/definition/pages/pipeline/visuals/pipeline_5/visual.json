@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "pipeline_5",
+  "position": {
+    "x": 20,
+    "y": 220,
+    "z": 5,
+    "width": 570,
+    "height": 260,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "deal_stage"
+                }
+              },
+              "queryRef": "fct_opportunity.deal_stage",
+              "nativeQueryRef": "deal_stage"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_opportunity"
+                    }
+                  },
+                  "Property": "Opportunities"
+                }
+              },
+              "queryRef": "fct_opportunity.Opportunities",
+              "nativeQueryRef": "Opportunities"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Current stage counts \u2014 not sequential conversion'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

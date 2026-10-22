@@ -1,0 +1,40 @@
+// Reference copy; measures are already installed in model.bim
+
+Opportunities =
+COUNTROWS(fct_opportunity)
+
+Won Deals =
+CALCULATE([Opportunities], KEEPFILTERS(fct_opportunity[deal_stage] = "Won"))
+
+Closed Deals =
+CALCULATE([Opportunities], KEEPFILTERS(fct_opportunity[deal_stage] IN {"Won", "Lost"}))
+
+Won Revenue =
+CALCULATE(SUM(fct_opportunity[revenue]), KEEPFILTERS(fct_opportunity[deal_stage] = "Won"))
+
+Win Rate =
+DIVIDE([Won Deals], [Closed Deals])
+
+Average Won Deal =
+DIVIDE([Won Revenue], [Won Deals])
+
+Average Won Sales Cycle Days =
+CALCULATE(AVERAGE(fct_opportunity[sales_cycle_days]), KEEPFILTERS(fct_opportunity[deal_stage] = "Won"))
+
+Open Opportunities =
+CALCULATE([Opportunities], REMOVEFILTERS(dim_date), KEEPFILTERS(fct_opportunity[deal_stage] IN {"Prospecting", "Engaging"}))
+
+Average Open Age Days =
+CALCULATE(AVERAGE(fct_opportunity[days_open_at_snapshot]), REMOVEFILTERS(dim_date), KEEPFILTERS(fct_opportunity[deal_stage] IN {"Prospecting", "Engaging"}))
+
+Missing Account Opportunities =
+CALCULATE([Opportunities], KEEPFILTERS(fct_opportunity[is_account_missing] = TRUE()))
+
+Missing Account Rate =
+DIVIDE([Missing Account Opportunities], [Opportunities])
+
+Revenue Previous Month =
+CALCULATE([Won Revenue], DATEADD(dim_date[date_day], -1, MONTH))
+
+Revenue MoM Change =
+VAR PreviousRevenue = [Revenue Previous Month] RETURN IF(NOT ISBLANK(PreviousRevenue), DIVIDE([Won Revenue] - PreviousRevenue, PreviousRevenue))

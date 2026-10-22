@@ -23,6 +23,18 @@ CSV files ──> etl/extract.py ──> etl/load.py ──> raw.* (DuckDB, land
                                                                                 not run live)
 ```
 
+## Power BI + DAX
+
+An editable [Power BI project](powerbi/README.md) now complements the Streamlit
+app: three report pages, 13 DAX measures, Power Query imports, and a star-schema
+semantic model. Open `powerbi/SalesPipeline.pbip`, set the `DataFolder` parameter,
+and refresh. CSV snapshots from the dbt marts are included.
+
+The warehouse tests and SQL/CSV reconciliation pass. **Power BI Desktop refresh,
+DAX execution, and visual rendering remain pending**; this source has not been
+published to Power BI Service. See the opening steps and acceptance values in
+[the Power BI guide](powerbi/README.md).
+
 ## Quickstart
 
 ```bash
